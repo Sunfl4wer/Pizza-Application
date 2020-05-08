@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mongo:
+    container_name: mongodb_pizza
+    image: mongo:latest
+    volumes:
+     - mongodb_pizza:/data/db
+    ports:
+     - "27017:27017"
+    hostname: mongodb_pizza
+
+
+  spring:
+    depends_on:
+     - mongo
+    image: docker-pizza:latest
+    ports:
+     - "9090:9090"
+    hostname: spring
+    links:
+     - mongo
+     
+volumes:
+  mongodb_pizza:
+  
